@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Khoros/Cantata Python Programmer Guide</title><style>body{font:16px Arial;line-height:1.55;max-width:1050px;margin:35px}code,pre{background:#f3f3f3;padding:2px 5px}pre{padding:12px;overflow:auto}table{border-collapse:collapse;width:100%}th,td{border:1px solid #aaa;padding:7px}h1,h2{color:#333}.note{border-left:5px solid #777;padding:10px;background:#f5f5f5}</style></head><body>
+<h1>Khoros/Cantata Python — Programmer Guide</h1>
+<p>This guide explains the code in plain language. The main idea is to preserve the old system's meaning while replacing its old executable machinery with Python.</p>
+<h2>1. The big picture</h2>
+<table><tr><th>Old idea</th><th>Python part</th><th>Simple meaning</th></tr><tr><td>Cantata workspace</td><td><code>workspace_runtime.py</code></td><td>A saved graph of boxes and lines.</td></tr><tr><td>Node/glyph</td><td><code>kernel.Node</code></td><td>A box that performs work.</td></tr><tr><td>Port</td><td><code>kernel.Port</code></td><td>A plug where data enters or leaves.</td></tr><tr><td>Connection</td><td><code>kernel.Connection</code></td><td>The line that moves data between boxes.</td></tr><tr><td>Data Services</td><td><code>kdms_object.py</code></td><td>The rules for storing and describing data.</td></tr><tr><td>VIFF</td><td><code>viff.py</code></td><td>The historical binary data container.</td></tr><tr><td>KDBM/CMS</td><td><code>kdbm_compat.py</code>, <code>cms.py</code></td><td>Historical database records describing data and software objects.</td></tr><tr><td>KForms/UIS</td><td><code>kforms_compat.py</code></td><td>The old operator property definitions.</td></tr><tr><td>Numerical operators</td><td><code>phase21_numeric.py</code></td><td>Python versions of selected source-defined numerical behavior.</td></tr></table>
+<h2>2. How a workspace is executed</h2>
+<ol><li><code>HistoricalWorkspaceParser</code> reads the text file.</li><li>It creates <code>HistoricalGlyph</code> and <code>HistoricalConnection</code> objects.</li><li><code>WorkspaceExecutor.restore()</code> creates Python graph nodes.</li><li>Each node looks up its operator in <code>NativeOperatorRegistry</code>.</li><li>When the graph runs, data is published through output ports.</li><li>Connections deliver that data to input ports.</li></ol>
+<div class="note"><b>Why this matters:</b> the old command line is kept as historical information, but it is not treated as Python code and is not passed to a shell.</div>
+<h2>3. Why the code is split into layers</h2>
+<p>The project uses layers because the original Khoros system used layers. A graph should not need to know how a VIFF file is stored. A VIFF reader should not need to know how a Cantata window looks. Keeping the layers separate makes testing easier.</p>
+<h2>4. Adding a native operator</h2>
+<pre>from khoros_cantata.workspace_runtime import NativeOperatorRegistry
+
+registry = NativeOperatorRegistry()
+
+def add(params, inputs):
+    return {"o": inputs["a"] + inputs["b"]}
+
+registry.register("DATAMANIP", "myadd", add)</pre>
+<p>The function receives two dictionaries. <code>params</code> contains settings from the operator command. <code>inputs</code> contains data from input ports. It returns a dictionary keyed by output-port name.</p>
+<h2>5. Reading a VIFF file</h2>
+<pre>from khoros_cantata.viff import read_viff
+
+obj = read_viff("sample.viff")
+for name, segment in obj.segments.items():
+    print(name, segment.data.shape, segment.data.dtype)</pre>
+<p>Do not throw away the segment metadata. Khoros used more than one kind of data segment, including value, location, time, mask, and map information.</p>
+<h2>6. Testing</h2>
+<p>Run the release tests with:</p>
+<pre>pytest -q tests</pre>
+<p>The release tests include the Phase 21 numerical checks, workspace parsing, and the KForms parser. The historical Khoros executable is not required.</p>
+<h2>7. Evidence levels</h2>
+<p>The final operator matrix has three important evidence levels:</p>
+<ul><li><b>Behaviorally validated:</b> direct comparison or strong historical test evidence was available.</li><li><b>Source-contract closed:</b> the recovered source gives a clear contract, but the old executable oracle was unavailable.</li><li><b>Native baseline:</b> a Python implementation surface exists, but behavioral closure is still open.</li></ul>
+<p>Never change a native baseline to “validated” just because its code runs. Validation needs evidence.</p>
+<h2>8. Legacy-independence rule</h2>
+<p>Production Python code must not call <code>subprocess</code>, a shell, <code>kexec</code>, or an old Khoros executable. Historical names may appear in documentation because programmers need to understand what was replaced.</p>
+<h2>9. Extending the project safely</h2>
+<ol><li>Find the old source behavior first.</li><li>Write a small Python function that states the rule clearly.</li><li>Add a test using historical data if available.</li><li>Record whether the old executable was available for comparison.</li><li>Only then mark the operator at the stronger evidence level.</li></ol>
+</body></html>

@@ -1,0 +1,22 @@
+# Khoros Visual Programming Workspace (streaming example)
+# price -> EMA(10), EMA(40) -> crossover (+1 golden cross, -1 death cross) -> signal
+VariablesBegin:
+VariablesEnd:
+#GlyphBegin
+Glyph:STREAM:kinput::1:20:100:: -name 'price'
+Glyph:SIGNAL:kema::2:120:60:: -span 10
+Glyph:SIGNAL:kema::3:120:140:: -span 40
+Glyph:SIGNAL:kcross::4:220:100::
+Glyph:STREAM:koutput::5:320:100:: -name 'signal'
+Glyph:STREAM:koutput::6:320:40:: -name 'fast'
+Glyph:STREAM:koutput::7:320:160:: -name 'slow'
+#GlyphEnd
+#ConnectionBegin
+NodeConnection:1:o:2:i:
+NodeConnection:1:o:3:i:
+NodeConnection:2:o:4:i1:
+NodeConnection:3:o:4:i2:
+NodeConnection:4:o:5:i:
+NodeConnection:2:o:6:i:
+NodeConnection:3:o:7:i:
+#ConnectionEnd

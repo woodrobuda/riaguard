@@ -1,0 +1,56 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Khoros/Cantata Python User Manual</title><style>body{font:16px Arial;line-height:1.55;max-width:1000px;margin:35px}code,pre{background:#f3f3f3;padding:2px 5px}pre{padding:12px;overflow:auto}table{border-collapse:collapse;width:100%}th,td{border:1px solid #aaa;padding:7px}h1,h2{color:#333}.note{border-left:5px solid #777;padding:10px;background:#f5f5f5}</style></head><body>
+<h1>Khoros/Cantata Python — User Manual</h1>
+<p>This manual is written for someone who can use a computer and understands simple ideas such as a file, a folder, and a program. You do not need to know C or the original Khoros system.</p>
+<h2>1. What this program is</h2>
+<p>Cantata was a visual programming system. A user placed processing boxes, called glyphs, on a workspace and connected them with lines. Data moved from one box to the next.</p>
+<p>This project keeps that basic idea, but the working engine is Python. The old Khoros executable is not required for the supported native operations.</p>
+<div class="note"><b>Important:</b> A historical workspace may name an old Khoros program. This release does not secretly start that program. If a Python-native replacement is not registered, the run stops instead of pretending the old program ran.</div>
+<h2>2. Installation</h2>
+<p>Use Python 3.11 or newer. NumPy is required for the numerical functions. From the release directory:</p>
+<pre>python -m pip install numpy</pre>
+<p>For testing, also install pytest:</p><pre>python -m pip install pytest</pre>
+<h2>3. First commands</h2>
+<h3>See the recovered test collection</h3><pre>python -m khoros_cantata.cli inventory</pre>
+<p>This reports the number of historical test suites, scripts, result files, and test-data files.</p>
+<h3>Run the numerical checks</h3><pre>python -m khoros_cantata.cli check</pre>
+<p>A successful run prints eleven checks with the word <b>PASS</b>.</p>
+<h3>Inspect a workspace</h3><pre>python -m khoros_cantata.cli inspect historical_workspaces/datamanip/examples/workspaces/kclip/clipout.megaclip.wksp</pre>
+<p>The command lists the glyphs and connections. This is useful when you want to understand an old workflow before running it.</p>
+<h2>4. Explicit use cases</h2>
+<h3>Use case A — Understand an old image workflow</h3>
+<ol><li>Choose a <code>.wksp</code> file.</li><li>Run the <code>inspect</code> command.</li><li>Read the listed glyphs from top to bottom.</li><li>Look at the connections to see where data goes.</li></ol>
+<p>This is useful when the old application is gone but the workspace file remains.</p>
+<h3>Use case B — Check whether numerical behavior still works</h3>
+<ol><li>Run <code>python -m khoros_cantata.cli check</code>.</li><li>Look for eleven PASS results.</li><li>If a test fails, keep the output. It tells a programmer which behavior needs attention.</li></ol>
+<p>The checks cover FFT behavior, convolution, clipping, arithmetic identities, and sine-wave generation from recovered Khoros source semantics and historical test material.</p>
+<h3>Use case C — Read a historical VIFF file</h3>
+<pre>from khoros_cantata.viff import read_viff
+
+image = read_viff("my_image.viff")
+print(image.segments.keys())</pre>
+<p>The returned object keeps the historical data segments instead of throwing away their metadata.</p>
+<h3>Use case D — Run a supported workspace in Python</h3>
+<pre>from pathlib import Path
+from khoros_cantata.workspace_runtime import HistoricalWorkspaceParser, WorkspaceExecutor, example_registry
+
+path = Path("historical_workspaces/datamanip/examples/workspaces/kclip/clipout.megaclip.wksp")
+old_graph = HistoricalWorkspaceParser().parse(path)
+engine = WorkspaceExecutor(example_registry())
+result = engine.execute(old_graph)
+print("Completed", len(result.nodes), "nodes")</pre>
+<p>This uses the Python-native operator registry. It does not call the historical Khoros executable.</p>
+<h3>Use case E — Build a small new Python workflow</h3>
+<pre>from khoros_cantata.workspace_runtime import NativeOperatorRegistry
+
+registry = NativeOperatorRegistry()
+registry.register("MYBOX", "double", lambda params, inputs: {"o": inputs["i"] * 2})</pre>
+<p>A programmer can then connect this operator to a restored workspace or build a new graph using the core kernel.</p>
+<h2>5. Understanding results</h2>
+<p><b>PASS</b> means the implemented behavior matched the test used for that check.</p>
+<p><b>Source-contract closed</b> means the recovered source tells us what the software was supposed to do, but the original executable was not available for a direct comparison.</p>
+<p><b>Native baseline</b> means a Python implementation surface exists, but more historical evidence is needed before claiming behavioral equivalence.</p>
+<h2>6. Common questions</h2>
+<p><b>Do I need Khoros?</b> No for the Python-native code in this release.</p>
+<p><b>Can every old workspace run?</b> No. A workspace can depend on an operator or external data that has not yet been reconstructed.</p>
+<p><b>Is this the original Khoros source?</b> No. It is a Python compatibility implementation based on recovered source evidence.</p>
+</body></html>

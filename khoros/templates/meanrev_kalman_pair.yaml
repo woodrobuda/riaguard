@@ -1,0 +1,45 @@
+name: meanrev_kalman_pair
+mode: stream
+description: |
+  Pairs mean reversion: a Kalman filter tracks the hedge ratio y = alpha + beta*x; the
+  one-step prior spread is z-scored over a trailing window; enter short the spread above +2,
+  long below -2; the position is held until the opposite signal.
+inputs: [x, y]
+outputs:
+  position: pos.o
+  zscore: z.o
+  spread: hedge.o
+  beta: hedge.o2
+nodes:
+  - id: hedge
+    op: kkalmanpair
+    params: {delta: 0.0001, r: 0.1}
+    rationale: dynamic hedge ratio; spread uses the prior estimate (no look-ahead)
+  - id: z
+    op: kzscore
+    params: {window: 60}
+    rationale: normalise the spread over the last 60 bars
+  - id: short
+    op: kcompare
+    params: {op: gt, real: 2.0, 'true': -1, 'false': 0}
+    rationale: spread rich -> short the spread
+  - id: long
+    op: kcompare
+    params: {op: lt, real: -2.0, 'true': 1, 'false': 0}
+    rationale: spread cheap -> long the spread
+  - id: entry
+    op: kadd
+    rationale: combine entry events (+1 / -1 / 0)
+  - id: pos
+    op: khold
+    rationale: hold the last entry until the opposite one
+edges:
+  - x -> hedge.i1
+  - y -> hedge.i2
+  - hedge.o -> z.i
+  - z -> short.i1
+  - z -> long.i1
+  - long -> entry.i1
+  - short -> entry.i2
+  - entry -> pos.i
+synthetic: {kind: pair, n: 2000, seed: 3}

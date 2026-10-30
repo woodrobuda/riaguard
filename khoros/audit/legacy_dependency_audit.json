@@ -1,0 +1,8 @@
+{
+  "production_python_files": 13,
+  "subprocess_or_shell_imports": [],
+  "legacy_dependency_findings": [],
+  "absolute_development_paths": 0,
+  "production_execution_of_historical_programs": "NOT_FOUND",
+  "conclusion": "No production Python code launches a historical Khoros executable. Historical names appear only in explanatory documentation."
+}

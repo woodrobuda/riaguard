@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "khoros-cantata-python"
+version = "0.22.0"
+description = "Python-native compatibility layers for recovered Khoros/Cantata behavior"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.24", "scipy>=1.10"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools]
+packages = ["khoros_cantata"]
+
+[project.optional-dependencies]
+authoring = ["pyyaml>=6"]
+
+[tool.setuptools.package-data]
+khoros_cantata = ["catalog.json"]

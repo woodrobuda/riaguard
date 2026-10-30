@@ -1,0 +1,23 @@
+{
+  "phase": 22,
+  "status": "COMPLETE_WITH_EXPLICIT_HISTORICAL_ORACLE_LIMITATION",
+  "release_version": "0.22.0",
+  "operator_rows": 134,
+  "SOURCE_CONTRACT_CLOSED_ORACLE_UNAVAILABLE": 42,
+  "NATIVE_BASELINE_NOT_BEHAVIORALLY_CLOSED": 89,
+  "BEHAVIORALLY_VALIDATED": 3,
+  "historical_datamanip_suites": 39,
+  "historical_test_scripts": 67,
+  "historical_golden_result_files": 227,
+  "historical_testdata_files": 37,
+  "release_test_returncode": 0,
+  "release_test_elapsed_seconds": 1.9494268894195557,
+  "legacy_executable_dependency": "NONE_FOUND_IN_PRODUCTION_PYTHON",
+  "documentation": [
+    "USER_MANUAL.html",
+    "PROGRAMMER_GUIDE.html",
+    "CODE_DOCUMENTATION.md",
+    "COMPATIBILITY_AND_LIMITATIONS.html"
+  ],
+  "limitation": "The historical executable oracle and some historical sample-data distributions remain unavailable."
+}

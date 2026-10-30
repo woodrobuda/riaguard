@@ -1,0 +1,6076 @@
+{
+ "version": 1,
+ "generated_by": "khoros_cantata.catalog_gen",
+ "operators": [
+  {
+   "name": "identity",
+   "toolbox": "*",
+   "description": "Passthrough.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kabs",
+   "toolbox": "DATAMANIP",
+   "description": "Absolute value |x|.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kabsdiff",
+   "toolbox": "DATAMANIP",
+   "description": "|i1 - i2|.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kadd",
+   "toolbox": "DATAMANIP",
+   "description": "i1 + i2 (or + -real constant).",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kappend",
+   "toolbox": "DATAMANIP",
+   "description": "Concatenate i1 and i2 along -axis.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "axis": {
+     "type": "string",
+     "default": "w",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "record concatenation",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "karith1",
+   "toolbox": "DATAMANIP",
+   "description": "Single-operand function selected by -op (abs, sqrt, exp, log, sin, erf, ...).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "op": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "karith2",
+   "toolbox": "DATAMANIP",
+   "description": "Dual-operand operation selected by -op (add, sub, mul, div, pow, min, max, atan2, and, or, ...).",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "op": {
+     "type": "string",
+     "default": "add",
+     "meaning": ""
+    },
+    "real": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kasc2loc",
+   "toolbox": "DATAMANIP",
+   "description": "ASCII -> location segment.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kasc2map",
+   "toolbox": "DATAMANIP",
+   "description": "ASCII -> map segment.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kasc2mask",
+   "toolbox": "DATAMANIP",
+   "description": "ASCII -> mask segment.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kasc2time",
+   "toolbox": "DATAMANIP",
+   "description": "ASCII -> time segment.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kasc2val",
+   "toolbox": "DATAMANIP",
+   "description": "ASCII -> value segment.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "katan",
+   "toolbox": "DATAMANIP",
+   "description": "Arctangent.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kaxis",
+   "toolbox": "DATAMANIP",
+   "description": "Generate a coordinate ramp along -axis.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "axis": {
+     "type": "string",
+     "default": "w",
+     "meaning": ""
+    },
+    "start": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "step": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": ""
+    },
+    "wsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "dsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "tsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "esize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kbessel",
+   "toolbox": "DATAMANIP",
+   "description": "Bessel functions J/Y/I/K of order -order.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "kind": {
+     "type": "string",
+     "default": "j",
+     "meaning": ""
+    },
+    "order": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kbitnot",
+   "toolbox": "DATAMANIP",
+   "description": "Bitwise NOT (int64).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kbitwise",
+   "toolbox": "DATAMANIP",
+   "description": "Bitwise and/or/xor/not/shift.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "op": {
+     "type": "string",
+     "default": "and",
+     "meaning": ""
+    },
+    "value": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kblend",
+   "toolbox": "DATAMANIP",
+   "description": "alpha*i1 + (1-alpha)*i2.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "alpha": {
+     "type": "number",
+     "default": 0.5,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcbrt",
+   "toolbox": "DATAMANIP",
+   "description": "Cube root.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kceil",
+   "toolbox": "DATAMANIP",
+   "description": "Ceiling.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kclip",
+   "toolbox": "DATAMANIP",
+   "description": "Clamp to [-lc, -uc] (either bound optional; 0 is a valid bound).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "lc": {
+     "type": "number",
+     "default": null,
+     "meaning": "lower bound (optional)"
+    },
+    "uc": {
+     "type": "number",
+     "default": null,
+     "meaning": "upper bound (optional, >= lc)"
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0",
+   "cost": "O(1)",
+   "finance_uses": [
+    "cap position size or z-scores",
+    "winsorise returns"
+   ],
+   "caveats": []
+  },
+  {
+   "name": "kclipout",
+   "toolbox": "DATAMANIP",
+   "description": "Alias of kclip.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "lc": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "uc": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcmplx",
+   "toolbox": "DATAMANIP",
+   "description": "Complex op: conj, mag, magsq, phase, real, imag, logmag.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "op": {
+     "type": "string",
+     "default": "conj",
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcmplx2real",
+   "toolbox": "DATAMANIP",
+   "description": "Complex -> real part / -mag / -phase / -imag / -logmag (output port om).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "om"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcomment",
+   "toolbox": "DATAMANIP",
+   "description": "Set the comment attribute.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "comment": {
+     "type": "string",
+     "default": "",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcompare",
+   "toolbox": "DATAMANIP",
+   "description": "Comparison (eq, ne, lt, le, gt, ge) -> -true/-false values.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "op": {
+     "type": "string",
+     "default": "eq",
+     "meaning": "comparison",
+     "choices": [
+      "eq",
+      "ne",
+      "lt",
+      "le",
+      "gt",
+      "ge"
+     ]
+    },
+    "true": {
+     "type": "number",
+     "default": 1,
+     "meaning": "output when true"
+    },
+    "false": {
+     "type": "number",
+     "default": 0,
+     "meaning": "output when false"
+    },
+    "tol": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": "tolerance for eq/ne",
+     "range": [
+      0,
+      1e+300
+     ]
+    },
+    "real": {
+     "type": "number",
+     "default": 0,
+     "meaning": "constant when i2 is not connected"
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0",
+   "cost": "O(1)",
+   "finance_uses": [
+    "filters (e.g. volatility below threshold)",
+    "signal gating"
+   ],
+   "caveats": []
+  },
+  {
+   "name": "kconvert",
+   "toolbox": "DATAMANIP",
+   "description": "Data type conversion with saturation, optional -norm / -scale.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "type": {
+     "type": "string",
+     "default": "float",
+     "meaning": ""
+    },
+    "scale": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "offset": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "norm": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "not with -norm 1",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcos",
+   "toolbox": "DATAMANIP",
+   "description": "Cosine.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcpfromval",
+   "toolbox": "DATAMANIP",
+   "description": "Copy value into a segment (VIFF).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "segment": {
+     "type": "string",
+     "default": "mask",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcpseg",
+   "toolbox": "DATAMANIP",
+   "description": "Copy a segment from i2 into i1 (VIFF).",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "segment": {
+     "type": "string",
+     "default": "mask",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcptoval",
+   "toolbox": "DATAMANIP",
+   "description": "Copy a segment into value (VIFF).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "segment": {
+     "type": "string",
+     "default": "mask",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcube",
+   "toolbox": "DATAMANIP",
+   "description": "Cube x^3.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kdiv",
+   "toolbox": "DATAMANIP",
+   "description": "i1 / i2 (or / -real).",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kdivinto",
+   "toolbox": "DATAMANIP",
+   "description": "i2 / i1 (Khoros \"divide into\").",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kexp",
+   "toolbox": "DATAMANIP",
+   "description": "e^x.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kextract",
+   "toolbox": "DATAMANIP",
+   "description": "Extract a sub-region by offsets/sizes.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "woff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "hoff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "doff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "toff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "eoff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "wsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "dsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "tsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "esize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "region selection by absolute index",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kfft",
+   "toolbox": "DATAMANIP",
+   "description": "N-D FFT/IFFT with Khoros scaling/centering options.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "dir": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "scale": {
+     "type": "integer",
+     "default": 1,
+     "meaning": ""
+    },
+    "center": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "w": {
+     "type": "integer",
+     "default": false,
+     "meaning": ""
+    },
+    "h": {
+     "type": "integer",
+     "default": false,
+     "meaning": ""
+    },
+    "d": {
+     "type": "integer",
+     "default": false,
+     "meaning": ""
+    },
+    "t": {
+     "type": "integer",
+     "default": false,
+     "meaning": ""
+    },
+    "e": {
+     "type": "integer",
+     "default": false,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "FFT over the whole record",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kflip",
+   "toolbox": "DATAMANIP",
+   "description": "Reverse along chosen axes.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "w": {
+     "type": "integer",
+     "default": false,
+     "meaning": ""
+    },
+    "h": {
+     "type": "integer",
+     "default": false,
+     "meaning": ""
+    },
+    "d": {
+     "type": "integer",
+     "default": false,
+     "meaning": ""
+    },
+    "t": {
+     "type": "integer",
+     "default": false,
+     "meaning": ""
+    },
+    "e": {
+     "type": "integer",
+     "default": false,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "time reversal",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kfloor",
+   "toolbox": "DATAMANIP",
+   "description": "Floor (to int).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kgate",
+   "toolbox": "DATAMANIP",
+   "description": "Pass i1 where gate i2 != 0, else -value.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "value": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "invert": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kgconst",
+   "toolbox": "DATAMANIP",
+   "description": "Constant generator.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "imag": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "wsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "dsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "tsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "esize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kgenloc",
+   "toolbox": "DATAMANIP",
+   "description": "Generate rectilinear location data.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "wsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "dsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "tsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "esize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kgnoise",
+   "toolbox": "DATAMANIP",
+   "description": "Noise generator.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "type": {
+     "type": "string",
+     "default": "gaussian",
+     "meaning": ""
+    },
+    "mean": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "var": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": ""
+    },
+    "min": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "max": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": ""
+    },
+    "seed": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "wsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "dsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "tsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "esize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "block generator",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kgsin",
+   "toolbox": "DATAMANIP",
+   "description": "Sinusoid generator.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "amp": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": ""
+    },
+    "wsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "dsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "tsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "esize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "block generator",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "khisto",
+   "toolbox": "DATAMANIP",
+   "description": "Histogram (counts o, edges o2).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    }
+   ],
+   "params": {
+    "bins": {
+     "type": "integer",
+     "default": 256,
+     "meaning": ""
+    },
+    "min": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "max": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "norm": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "histogram of the whole record",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "khistops",
+   "toolbox": "DATAMANIP",
+   "description": "Histogram equalise/stretch/match.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "op": {
+     "type": "string",
+     "default": "equalize",
+     "meaning": ""
+    },
+    "bins": {
+     "type": "integer",
+     "default": 256,
+     "meaning": ""
+    },
+    "min": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "max": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "histogram equalisation uses the whole-record CDF",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kimportasc",
+   "toolbox": "DATAMANIP",
+   "description": "Parse ASCII numbers.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kimportraw",
+   "toolbox": "DATAMANIP",
+   "description": "Decode raw bytes with dtype/endianness/offset.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "type": {
+     "type": "string",
+     "default": "float32",
+     "meaning": ""
+    },
+    "offset": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "endian": {
+     "type": "string",
+     "default": "little",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kimpulse",
+   "toolbox": "DATAMANIP",
+   "description": "Impulse / impulse-train generator.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "amp": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": ""
+    },
+    "spacing": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "wsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "dsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "tsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "esize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kinsertseg",
+   "toolbox": "DATAMANIP",
+   "description": "Insert data as a segment (VIFF).",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "segment": {
+     "type": "string",
+     "default": "mask",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kinset",
+   "toolbox": "DATAMANIP",
+   "description": "Insert i2 into i1 at offsets.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "woff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "hoff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "doff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "toff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "eoff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kinverse",
+   "toolbox": "DATAMANIP",
+   "description": "Multiplicative inverse 1/x (historical semantics unconfirmed).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kkmeans",
+   "toolbox": "DATAMANIP",
+   "description": "k-means clustering (labels o, centres o2).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    }
+   ],
+   "params": {
+    "iter": {
+     "type": "integer",
+     "default": 50,
+     "meaning": ""
+    },
+    "seed": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "klinearop",
+   "toolbox": "DATAMANIP",
+   "description": "Khoros linear operator: 1-D convolution with kernel origin -w0 (moving average with -n).",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "n": {
+     "type": "integer",
+     "default": 3,
+     "meaning": "moving-average length when no kernel on i2",
+     "range": [
+      1,
+      1000000.0
+     ]
+    },
+    "w0": {
+     "type": "integer",
+     "default": 0,
+     "meaning": "kernel origin; >0 shifts output earlier (NON-CAUSAL)",
+     "range": [
+      0,
+      1000000.0
+     ]
+    },
+    "ext": {
+     "type": "integer",
+     "default": 0,
+     "meaning": "extended (full) output length",
+     "choices": [
+      0,
+      1
+     ]
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "-w0 0, no -ext, kernel from -n",
+   "lag": "(p.get(\"n\", 3) - 1) / 2 - p.get(\"w0\", 0)",
+   "lag_formula": "SMA: (n-1)/2 - w0 samples",
+   "cost": "O(n) per sample",
+   "finance_uses": [
+    "simple moving average (SMA)"
+   ],
+   "caveats": [
+    "w0 > 0 or -ext is rejected in streaming"
+   ]
+  },
+  {
+   "name": "klocxform",
+   "toolbox": "DATAMANIP",
+   "description": "Affine transform of location data.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "translate": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "matrix": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "klog",
+   "toolbox": "DATAMANIP",
+   "description": "Natural log.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "klog10",
+   "toolbox": "DATAMANIP",
+   "description": "Base-10 log.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "klogexp",
+   "toolbox": "DATAMANIP",
+   "description": "Log or exponential with optional -base.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "op": {
+     "type": "string",
+     "default": "log",
+     "meaning": ""
+    },
+    "base": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kmag",
+   "toolbox": "DATAMANIP",
+   "description": "Alias of kcmplx2real.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "om"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kmapdata",
+   "toolbox": "DATAMANIP",
+   "description": "Look-up table: o = i2[int(i1)].",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kmax",
+   "toolbox": "DATAMANIP",
+   "description": "Elementwise maximum.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kmegaclip",
+   "toolbox": "DATAMANIP",
+   "description": "Passthrough placeholder (historical megaclip not reconstructed).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kmin",
+   "toolbox": "DATAMANIP",
+   "description": "Elementwise minimum.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kmul",
+   "toolbox": "DATAMANIP",
+   "description": "i1 * i2 (or * -real).",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "number",
+     "default": 0,
+     "meaning": "constant when i2 is not connected"
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0",
+   "cost": "O(1)",
+   "finance_uses": [
+    "apply a filter mask to a position",
+    "scale"
+   ],
+   "caveats": [
+    "unconnected i2 with no -real multiplies by 0"
+   ]
+  },
+  {
+   "name": "kneg",
+   "toolbox": "DATAMANIP",
+   "description": "Negation -x.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "knoise",
+   "toolbox": "DATAMANIP",
+   "description": "Add/multiply noise.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "type": {
+     "type": "string",
+     "default": "gaussian",
+     "meaning": ""
+    },
+    "mode": {
+     "type": "string",
+     "default": "additive",
+     "meaning": ""
+    },
+    "seed": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "mean": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "var": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "knormal",
+   "toolbox": "DATAMANIP",
+   "description": "Normalise over the whole record (minmax, zscore, sum, max).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "method": {
+     "type": "string",
+     "default": "minmax",
+     "meaning": ""
+    },
+    "min": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "max": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "normalises by whole-record min/max/mean",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "korient",
+   "toolbox": "DATAMANIP",
+   "description": "Reorder axes.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "order": {
+     "type": "string",
+     "default": "hwdte",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "axis reordering",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kpad",
+   "toolbox": "DATAMANIP",
+   "description": "Pad to size with -real value at offsets.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "woff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "hoff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "doff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "toff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "eoff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "wsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "dsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "tsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "esize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "absolute-index padding",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kpow",
+   "toolbox": "DATAMANIP",
+   "description": "i1 ** i2.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kprdata",
+   "toolbox": "DATAMANIP",
+   "description": "Format data as text.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "format": {
+     "type": "string",
+     "default": "%.6g",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kprval",
+   "toolbox": "DATAMANIP",
+   "description": "Format one value as text.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "format": {
+     "type": "string",
+     "default": "%.6g",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kreal2cmplx",
+   "toolbox": "DATAMANIP",
+   "description": "Build complex i1 + j*i2.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "krecip",
+   "toolbox": "DATAMANIP",
+   "description": "Reciprocal 1/x.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kreplace",
+   "toolbox": "DATAMANIP",
+   "description": "Replace values in [-lval, -uval] (or outside) with -new.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "lval": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "uval": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "new": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "outside": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kresample",
+   "toolbox": "DATAMANIP",
+   "description": "Resample axes (zero-order, linear, FFT).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "interp": {
+     "type": "string",
+     "default": "linear",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "resampling interpolates between neighbours on both sides",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "krmseg",
+   "toolbox": "DATAMANIP",
+   "description": "Remove a segment (VIFF).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "segment": {
+     "type": "string",
+     "default": "mask",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ksampline",
+   "toolbox": "DATAMANIP",
+   "description": "Sample an image along a line.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "x1": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "y1": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "x2": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "y2": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "n": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ksegcmp",
+   "toolbox": "DATAMANIP",
+   "description": "Compare a segment of two objects.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "segment": {
+     "type": "string",
+     "default": "value",
+     "meaning": ""
+    },
+    "tol": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ksetdattr",
+   "toolbox": "DATAMANIP",
+   "description": "Set a data attribute.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "value": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "segment": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "attribute": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kshot",
+   "toolbox": "DATAMANIP",
+   "description": "Salt-and-pepper shot noise.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "prob": {
+     "type": "number",
+     "default": 0.05,
+     "meaning": ""
+    },
+    "min": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "max": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "seed": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "noise uses whole-record min/max by default",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ksign",
+   "toolbox": "DATAMANIP",
+   "description": "Sign (-1, 0, 1).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ksin",
+   "toolbox": "DATAMANIP",
+   "description": "Sine.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ksqr",
+   "toolbox": "DATAMANIP",
+   "description": "Square x^2.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ksqrt",
+   "toolbox": "DATAMANIP",
+   "description": "Square root.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kstats",
+   "toolbox": "DATAMANIP",
+   "description": "Whole-record statistics (mean, variance, std, min, max, sum, points).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "whole-record summary",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ksub",
+   "toolbox": "DATAMANIP",
+   "description": "i1 - i2 (or - -real).",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ktan",
+   "toolbox": "DATAMANIP",
+   "description": "Tangent.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ktruncate",
+   "toolbox": "DATAMANIP",
+   "description": "Truncate toward zero (to int).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kunmask",
+   "toolbox": "DATAMANIP",
+   "description": "Replace samples whose mask (i2) is 0 with -value.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "value": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (pointwise)",
+   "cost": "O(1) per sample",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kwiener",
+   "toolbox": "DATAMANIP",
+   "description": "Wiener restoration (PSF) or adaptive local Wiener.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "nsr": {
+     "type": "number",
+     "default": 0.01,
+     "meaning": ""
+    },
+    "size": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "noise": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "frequency-domain / centred-window Wiener filter",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcolorspace",
+   "toolbox": "ENVISION",
+   "description": "Colour-space conversion.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "conv": {
+     "type": "string",
+     "default": "rgb2hsv",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "khold",
+   "toolbox": "FINANCE",
+   "description": "Hold last non-zero event (events -> position).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "initial": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": "value before the first event"
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0",
+   "cost": "O(1)",
+   "finance_uses": [
+    "turn crossing events into a +1/-1 position"
+   ],
+   "caveats": []
+  },
+  {
+   "name": "kkalman",
+   "toolbox": "FINANCE",
+   "description": "Local-linear-trend Kalman filter (level o, slope o2).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    }
+   ],
+   "params": {
+    "ql": {
+     "type": "number",
+     "default": 0.0001,
+     "meaning": "level process noise variance",
+     "range": [
+      0,
+      1000000.0
+     ]
+    },
+    "qs": {
+     "type": "number",
+     "default": 1e-06,
+     "meaning": "slope process noise variance",
+     "range": [
+      0,
+      1000000.0
+     ]
+    },
+    "r": {
+     "type": "number",
+     "default": 0.01,
+     "meaning": "observation noise variance",
+     "range": [
+      1e-12,
+      1000000000.0
+     ]
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "_kalman_lag(p)",
+   "lag_formula": "steady state: (1-K_level)/K_level samples (ignoring slope correction); depends on q/r",
+   "cost": "O(1) per sample (2x2)",
+   "finance_uses": [
+    "adaptive trend/level estimate",
+    "slope as momentum signal"
+   ],
+   "caveats": [
+    "parameters are in price units squared: rescale for different price levels",
+    "initial covariance 1e3 I"
+   ]
+  },
+  {
+   "name": "kkalmanpair",
+   "toolbox": "FINANCE",
+   "description": "Kalman dynamic hedge ratio (prior spread o, beta o2, alpha o3).",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "x (independent leg)",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "y (dependent leg)",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    },
+    {
+     "port": "o3"
+    }
+   ],
+   "params": {
+    "delta": {
+     "type": "number",
+     "default": 0.0001,
+     "meaning": "coefficient drift (higher = faster-adapting beta)",
+     "range": [
+      1e-12,
+      0.999
+     ]
+    },
+    "r": {
+     "type": "number",
+     "default": 0.001,
+     "meaning": "observation noise variance of y",
+     "range": [
+      1e-12,
+      1000000000.0
+     ]
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "spread uses the one-step prior: no look-ahead; beta adapts with time constant ~ r/(delta * var(x))",
+   "cost": "O(1) per sample (2x2)",
+   "finance_uses": [
+    "statistical arbitrage pairs: spread = y - (alpha + beta x)",
+    "dynamic hedge ratio"
+   ],
+   "caveats": [
+    "cointegration is not tested",
+    "early samples (burn-in) are unreliable"
+   ]
+  },
+  {
+   "name": "klogret",
+   "toolbox": "FINANCE",
+   "description": "Log return ln(x_t/x_{t-1}).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "fill": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": "value at t=0"
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0.5",
+   "lag_formula": "1/2 sample (first difference of log price)",
+   "cost": "O(1)",
+   "finance_uses": [
+    "returns for volatility estimation",
+    "momentum"
+   ],
+   "caveats": [
+    "inputs must be > 0"
+   ]
+  },
+  {
+   "name": "kthreshold3",
+   "toolbox": "FINANCE",
+   "description": "Three-level regime 0/1/2 by -lo/-hi.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "lo": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": "lower threshold"
+    },
+    "hi": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": "upper threshold (>= lo)"
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0",
+   "cost": "O(1)",
+   "finance_uses": [
+    "volatility / trend regime labels"
+   ],
+   "caveats": [
+    "no hysteresis"
+   ]
+  },
+  {
+   "name": "kzscore",
+   "toolbox": "FINANCE",
+   "description": "Trailing-window z-score.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "window": {
+     "type": "integer",
+     "default": 20,
+     "meaning": "trailing window length",
+     "range": [
+      2,
+      1000000.0
+     ]
+    },
+    "minp": {
+     "type": "integer",
+     "default": 2,
+     "meaning": "minimum samples before output is non-zero",
+     "range": [
+      1,
+      1000000.0
+     ]
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "(p.get(\"window\", 20) - 1) / 2",
+   "lag_formula": "(n-1)/2 for the mean estimate",
+   "cost": "O(window) per sample",
+   "finance_uses": [
+    "mean-reversion entry/exit on spreads",
+    "normalising indicators"
+   ],
+   "caveats": [
+    "outputs 0 until minp samples and when std = 0",
+    "population std"
+   ]
+  },
+  {
+   "name": "gcolorize",
+   "toolbox": "GEOMETRY",
+   "description": "Map scalars through a colour map.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "min": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "max": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "gextents",
+   "toolbox": "GEOMETRY",
+   "description": "Bounding box of locations.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ggencmap",
+   "toolbox": "GEOMETRY",
+   "description": "Generate a colour map.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "n": {
+     "type": "integer",
+     "default": 256,
+     "meaning": ""
+    },
+    "scheme": {
+     "type": "string",
+     "default": "grey",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ggridder2d",
+   "toolbox": "GEOMETRY",
+   "description": "Grid scattered 2-D samples.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "wsize": {
+     "type": "integer",
+     "default": 32,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "integer",
+     "default": 32,
+     "meaning": ""
+    },
+    "method": {
+     "type": "string",
+     "default": "linear",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kslicer",
+   "toolbox": "GEOMETRY",
+   "description": "Take a slice along an axis.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "axis": {
+     "type": "string",
+     "default": "d",
+     "meaning": ""
+    },
+    "index": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "iclose",
+   "toolbox": "IMAGE",
+   "description": "Closing.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "size": {
+     "type": "integer",
+     "default": 3,
+     "meaning": ""
+    },
+    "shape": {
+     "type": "string",
+     "default": "square",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "idilate",
+   "toolbox": "IMAGE",
+   "description": "Dilation.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "size": {
+     "type": "integer",
+     "default": 3,
+     "meaning": ""
+    },
+    "shape": {
+     "type": "string",
+     "default": "square",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "iedge",
+   "toolbox": "IMAGE",
+   "description": "Edge magnitude (optional threshold).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "op": {
+     "type": "string",
+     "default": "sobel",
+     "meaning": ""
+    },
+    "thresh": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "centred differences",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ierode",
+   "toolbox": "IMAGE",
+   "description": "Erosion.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "size": {
+     "type": "integer",
+     "default": 3,
+     "meaning": ""
+    },
+    "shape": {
+     "type": "string",
+     "default": "square",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ifilt_design",
+   "toolbox": "IMAGE",
+   "description": "Frequency-domain filter design.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "wsize": {
+     "type": "integer",
+     "default": 64,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "integer",
+     "default": 64,
+     "meaning": ""
+    },
+    "ftype": {
+     "type": "string",
+     "default": "lowpass",
+     "meaning": ""
+    },
+    "shape": {
+     "type": "string",
+     "default": "butterworth",
+     "meaning": ""
+    },
+    "cutoff": {
+     "type": "number",
+     "default": 0.25,
+     "meaning": ""
+    },
+    "cutoff2": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "order": {
+     "type": "integer",
+     "default": 2,
+     "meaning": ""
+    },
+    "center": {
+     "type": "integer",
+     "default": 1,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "igamut",
+   "toolbox": "IMAGE",
+   "description": "Colour quantisation.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    }
+   ],
+   "params": {
+    "ncolors": {
+     "type": "integer",
+     "default": 16,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "igauss_func",
+   "toolbox": "IMAGE",
+   "description": "2-D Gaussian generator.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "wsize": {
+     "type": "integer",
+     "default": 64,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "integer",
+     "default": 64,
+     "meaning": ""
+    },
+    "xcenter": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "ycenter": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "xvar": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": ""
+    },
+    "yvar": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "amp": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "igeowarp",
+   "toolbox": "IMAGE",
+   "description": "Polynomial warp.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "interp": {
+     "type": "integer",
+     "default": 1,
+     "meaning": ""
+    },
+    "real": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "xcoef": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "ycoef": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "igradient",
+   "toolbox": "IMAGE",
+   "description": "Gradient magnitude/direction/gx/gy.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    },
+    {
+     "port": "o3"
+    },
+    {
+     "port": "o4"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "centred differences",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ilabel",
+   "toolbox": "IMAGE",
+   "description": "Connected-component labels.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ilaplacian",
+   "toolbox": "IMAGE",
+   "description": "Laplacian.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "centred differences",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "imedian",
+   "toolbox": "IMAGE",
+   "description": "Median filter.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "wsize": {
+     "type": "integer",
+     "default": 3,
+     "meaning": ""
+    },
+    "hsize": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "centred median window",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "imorph",
+   "toolbox": "IMAGE",
+   "description": "Morphology (erode/dilate/open/close/gradient/tophat).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "op": {
+     "type": "string",
+     "default": "dilate",
+     "meaning": ""
+    },
+    "size": {
+     "type": "integer",
+     "default": 3,
+     "meaning": ""
+    },
+    "shape": {
+     "type": "string",
+     "default": "square",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "iopen",
+   "toolbox": "IMAGE",
+   "description": "Opening.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "size": {
+     "type": "integer",
+     "default": 3,
+     "meaning": ""
+    },
+    "shape": {
+     "type": "string",
+     "default": "square",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "irotate",
+   "toolbox": "IMAGE",
+   "description": "Rotate by -angle degrees.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "angle": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "interp": {
+     "type": "integer",
+     "default": 1,
+     "meaning": ""
+    },
+    "real": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "resize": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "2-D resampling",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "iscale",
+   "toolbox": "IMAGE",
+   "description": "Zoom.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "wfactor": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": ""
+    },
+    "hfactor": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "interp": {
+     "type": "integer",
+     "default": 1,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "itexture",
+   "toolbox": "IMAGE",
+   "description": "Local texture feature.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "wsize": {
+     "type": "integer",
+     "default": 5,
+     "meaning": ""
+    },
+    "feature": {
+     "type": "string",
+     "default": "variance",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "ithresh",
+   "toolbox": "IMAGE",
+   "description": "Threshold (range or Otsu).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "lval": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "uval": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "method": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    },
+    "inside": {
+     "type": "integer",
+     "default": 1,
+     "meaning": ""
+    },
+    "outside": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "itranslate",
+   "toolbox": "IMAGE",
+   "description": "Shift.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "woff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "hoff": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "interp": {
+     "type": "integer",
+     "default": 1,
+     "meaning": ""
+    },
+    "real": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": ""
+    },
+    "wrap": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "mcovar",
+   "toolbox": "MATRIX",
+   "description": "Covariance.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "meigen",
+   "toolbox": "MATRIX",
+   "description": "Eigen-decomposition.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "mexchg",
+   "toolbox": "MATRIX",
+   "description": "Exchange rows/columns.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "i": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    },
+    "j": {
+     "type": "integer",
+     "default": 1,
+     "meaning": ""
+    },
+    "what": {
+     "type": "string",
+     "default": "rows",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "mextract_diag",
+   "toolbox": "MATRIX",
+   "description": "Extract diagonal.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "mgdiag",
+   "toolbox": "MATRIX",
+   "description": "Diagonal matrix from vector.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "minvert",
+   "toolbox": "MATRIX",
+   "description": "Inverse / pseudo-inverse.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "pseudo": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "mlse",
+   "toolbox": "MATRIX",
+   "description": "Least squares.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "mlud",
+   "toolbox": "MATRIX",
+   "description": "LU decomposition.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    },
+    {
+     "port": "o3"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "mmul",
+   "toolbox": "MATRIX",
+   "description": "Matrix product.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "mpow",
+   "toolbox": "MATRIX",
+   "description": "Matrix power.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "power": {
+     "type": "integer",
+     "default": 2,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "mrcsum",
+   "toolbox": "MATRIX",
+   "description": "Row (o) and column (o2) sums.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "mreplicate",
+   "toolbox": "MATRIX",
+   "description": "Tile matrix.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "hrep": {
+     "type": "integer",
+     "default": 1,
+     "meaning": ""
+    },
+    "wrep": {
+     "type": "integer",
+     "default": 1,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "msvd",
+   "toolbox": "MATRIX",
+   "description": "SVD.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    },
+    {
+     "port": "o3"
+    }
+   ],
+   "params": {},
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kconvolve",
+   "toolbox": "SIGNAL",
+   "description": "Full/same/valid FFT convolution.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "mode": {
+     "type": "string",
+     "default": "full",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "full/centred convolution (use kfir or klinearop -w0 0)",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcorr",
+   "toolbox": "SIGNAL",
+   "description": "Cross/auto-correlation.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "mode": {
+     "type": "string",
+     "default": "full",
+     "meaning": ""
+    },
+    "norm": {
+     "type": "number",
+     "default": null,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "two-sided correlation",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kcross",
+   "toolbox": "SIGNAL",
+   "description": "Crossover events: +1 when i1 crosses above i2, -1 below.",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": true
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "real": {
+     "type": "number",
+     "default": 0,
+     "meaning": "constant level when i2 is not connected"
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0",
+   "lag_formula": "0 (inherits the lag of its inputs)",
+   "cost": "O(1)",
+   "finance_uses": [
+    "MA crossover entry/exit events",
+    "zero-line crosses"
+   ],
+   "caveats": [
+    "emits events, not positions: follow with khold"
+   ]
+  },
+  {
+   "name": "kdelay",
+   "toolbox": "SIGNAL",
+   "description": "Delay by -n samples.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "n": {
+     "type": "integer",
+     "default": 1,
+     "meaning": "delay in samples",
+     "range": [
+      0,
+      1000000.0
+     ]
+    },
+    "fill": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": "initial fill"
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "p.get(\"n\", 1)",
+   "lag_formula": "n samples",
+   "cost": "O(1)",
+   "finance_uses": [
+    "lagged features",
+    "execution delay modelling"
+   ],
+   "caveats": []
+  },
+  {
+   "name": "kdiff",
+   "toolbox": "SIGNAL",
+   "description": "First difference.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "fill": {
+     "type": "number",
+     "default": 0.0,
+     "meaning": "value at t=0"
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "0.5",
+   "lag_formula": "1/2 sample",
+   "cost": "O(1)",
+   "finance_uses": [
+    "price changes",
+    "momentum"
+   ],
+   "caveats": []
+  },
+  {
+   "name": "kdwt",
+   "toolbox": "SIGNAL",
+   "description": "Discrete wavelet transform (haar, db2).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "wavelet": {
+     "type": "string",
+     "default": "haar",
+     "meaning": ""
+    },
+    "levels": {
+     "type": "integer",
+     "default": 1,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "block wavelet transform (wavelet denoise needs the whole block)",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kema",
+   "toolbox": "SIGNAL",
+   "description": "Exponential moving average.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "span": {
+     "type": "number",
+     "default": 20,
+     "meaning": "EMA span N; alpha = 2/(N+1)",
+     "range": [
+      1,
+      1000000.0
+     ]
+    },
+    "alpha": {
+     "type": "number",
+     "default": null,
+     "meaning": "smoothing factor; overrides span",
+     "range": [
+      1e-09,
+      1
+     ]
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "((1 - p[\"alpha\"]) / p[\"alpha\"]) if p.get(\"alpha\") else (p.get(\"span\", 20) - 1) / 2",
+   "lag_formula": "(1-alpha)/alpha = (N-1)/2 samples at low frequency",
+   "cost": "O(1) per sample",
+   "finance_uses": [
+    "trend following (fast/slow crossovers)",
+    "MACD",
+    "smoothing prices or volatility"
+   ],
+   "caveats": [
+    "seeded with the first sample (adjust=False convention)",
+    "lag grows linearly with span"
+   ]
+  },
+  {
+   "name": "kfir",
+   "toolbox": "SIGNAL",
+   "description": "FIR filter (windowed-sinc design from options, or taps on i2).",
+   "inputs": [
+    {
+     "port": "i1",
+     "meaning": "",
+     "optional": false
+    },
+    {
+     "port": "i2",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "taps": {
+     "type": "integer",
+     "default": 31,
+     "meaning": "number of taps",
+     "range": [
+      1,
+      100001
+     ]
+    },
+    "cutoff": {
+     "type": "number",
+     "default": 0.25,
+     "meaning": "cutoff in cycles/sample",
+     "range": [
+      1e-06,
+      0.4999
+     ]
+    },
+    "ftype": {
+     "type": "string",
+     "default": "lowpass",
+     "meaning": "response",
+     "choices": [
+      "lowpass",
+      "highpass",
+      "bandpass",
+      "bandstop"
+     ]
+    },
+    "window": {
+     "type": "string",
+     "default": "hamming",
+     "meaning": "design window",
+     "choices": [
+      "hamming",
+      "hanning",
+      "blackman",
+      "rect",
+      "bartlett",
+      "kaiser"
+     ]
+    },
+    "mode": {
+     "type": "string",
+     "default": "causal",
+     "meaning": "causal = lfilter; same/full are NON-CAUSAL",
+     "choices": [
+      "causal",
+      "same",
+      "full"
+     ]
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "-mode causal with taps from options (i2 unconnected)",
+   "lag": "(p.get(\"taps\", 31) - 1) / 2",
+   "lag_formula": "(taps-1)/2 samples (linear phase)",
+   "cost": "O(taps) per sample",
+   "finance_uses": [
+    "linear-phase smoothing",
+    "band-pass cycle extraction"
+   ],
+   "caveats": [
+    "-mode same/full rejected in streaming"
+   ]
+  },
+  {
+   "name": "kgwindow",
+   "toolbox": "SIGNAL",
+   "description": "Generate a window.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "wsize": {
+     "type": "integer",
+     "default": 64,
+     "meaning": ""
+    },
+    "type": {
+     "type": "string",
+     "default": "hamming",
+     "meaning": ""
+    },
+    "beta": {
+     "type": "number",
+     "default": 8.6,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "khilbert",
+   "toolbox": "SIGNAL",
+   "description": "Analytic signal: envelope / phase / Hilbert transform.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "output": {
+     "type": "string",
+     "default": "envelope",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "Hilbert transform (FFT, two-sided)",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kidwt",
+   "toolbox": "SIGNAL",
+   "description": "Inverse DWT.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "wavelet": {
+     "type": "string",
+     "default": "haar",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "block inverse wavelet transform",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kiir",
+   "toolbox": "SIGNAL",
+   "description": "IIR filter (Butterworth/Chebyshev/elliptic/Bessel, SOS).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "order": {
+     "type": "integer",
+     "default": 4,
+     "meaning": "filter order",
+     "range": [
+      1,
+      20
+     ]
+    },
+    "cutoff": {
+     "type": "number",
+     "default": 0.25,
+     "meaning": "cutoff in cycles/sample (Nyquist 0.5)",
+     "range": [
+      1e-06,
+      0.4999
+     ]
+    },
+    "ftype": {
+     "type": "string",
+     "default": "lowpass",
+     "meaning": "response type",
+     "choices": [
+      "lowpass",
+      "highpass",
+      "bandpass",
+      "bandstop"
+     ]
+    },
+    "family": {
+     "type": "string",
+     "default": "butter",
+     "meaning": "design family",
+     "choices": [
+      "butter",
+      "cheby1",
+      "cheby2",
+      "ellip",
+      "bessel"
+     ]
+    },
+    "rp": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": "passband ripple dB"
+    },
+    "rs": {
+     "type": "number",
+     "default": 40.0,
+     "meaning": "stopband attenuation dB"
+    },
+    "zerophase": {
+     "type": "integer",
+     "default": 0,
+     "meaning": "1 = filtfilt (NON-CAUSAL)",
+     "choices": [
+      0,
+      1
+     ]
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "not with -zerophase 1",
+   "lag": "_iir_lag(p)",
+   "lag_formula": "DC group delay of the designed filter (computed numerically); 0 claimed for zerophase but non-causal",
+   "cost": "O(order) per sample",
+   "finance_uses": [
+    "smoothing with sharper cutoff than EMA",
+    "detrending (highpass)"
+   ],
+   "caveats": [
+    "-zerophase 1 is rejected in streaming graphs",
+    "group delay varies with frequency"
+   ]
+  },
+  {
+   "name": "kpsd",
+   "toolbox": "SIGNAL",
+   "description": "Power spectral density (periodogram/Welch).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    },
+    {
+     "port": "o2"
+    }
+   ],
+   "params": {
+    "fs": {
+     "type": "number",
+     "default": 1.0,
+     "meaning": ""
+    },
+    "method": {
+     "type": "string",
+     "default": "periodogram",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "spectral estimate over the whole record",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "krunstats",
+   "toolbox": "SIGNAL",
+   "description": "Running statistic (cumulative or trailing window).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "stat": {
+     "type": "string",
+     "default": "mean",
+     "meaning": "statistic",
+     "choices": [
+      "mean",
+      "var",
+      "std",
+      "min",
+      "max",
+      "sum"
+     ]
+    },
+    "window": {
+     "type": "integer",
+     "default": null,
+     "meaning": "trailing window; omit for cumulative",
+     "range": [
+      1,
+      1000000.0
+     ]
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "",
+   "lag": "((p[\"window\"] - 1) / 2) if p.get(\"window\") else None",
+   "lag_formula": "(n-1)/2 for a trailing window of n; cumulative is unbounded (grows with t)",
+   "cost": "O(window) per sample (cumulative O(1))",
+   "finance_uses": [
+    "rolling volatility (std of returns)",
+    "rolling high/low (breakouts)",
+    "running mean"
+   ],
+   "caveats": [
+    "population variance (ddof=0)",
+    "first window-1 outputs use partial windows"
+   ]
+  },
+  {
+   "name": "kspectrum",
+   "toolbox": "SIGNAL",
+   "description": "Magnitude/power/phase spectrum.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "output": {
+     "type": "string",
+     "default": "magnitude",
+     "meaning": ""
+    },
+    "db": {
+     "type": "integer",
+     "default": 0,
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "non-causal",
+   "streaming_note": "FFT over the whole record",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kwindow",
+   "toolbox": "SIGNAL",
+   "description": "Multiply by a window (hamming, hann, blackman, kaiser, ...).",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "type": {
+     "type": "string",
+     "default": "hamming",
+     "meaning": ""
+    }
+   },
+   "streamable": false,
+   "streaming_status": "undeclared",
+   "streaming_note": "operator has not declared a causal streaming interface",
+   "lag": null,
+   "lag_formula": "n/a",
+   "cost": "O(N) per record (see implementation)",
+   "finance_uses": [],
+   "caveats": []
+  },
+  {
+   "name": "kinput",
+   "toolbox": "STREAM",
+   "description": "Stream source fed by StreamingExecutor.push(name=...).",
+   "inputs": [],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "name": {
+     "type": "string",
+     "default": null,
+     "meaning": "stream name (required)"
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "stream I/O / adapter",
+   "lag": "0",
+   "lag_formula": "0",
+   "cost": "O(1)",
+   "finance_uses": [
+    "price / volume / bar fields"
+   ],
+   "caveats": [
+    "feed closed bars only"
+   ]
+  },
+  {
+   "name": "koutput",
+   "toolbox": "STREAM",
+   "description": "Collected stream output.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "name": {
+     "type": "string",
+     "default": null,
+     "meaning": "output name (required)"
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "stream I/O / adapter",
+   "lag": "0",
+   "lag_formula": "0",
+   "cost": "O(1)",
+   "finance_uses": [
+    "signals, positions, diagnostics"
+   ],
+   "caveats": []
+  },
+  {
+   "name": "krolling",
+   "toolbox": "STREAM",
+   "description": "Trailing-window adapter that makes any same-length batch operator causal.",
+   "inputs": [
+    {
+     "port": "i",
+     "meaning": "",
+     "optional": false
+    }
+   ],
+   "outputs": [
+    {
+     "port": "o"
+    }
+   ],
+   "params": {
+    "op": {
+     "type": "string",
+     "default": null,
+     "meaning": "wrapped operator name (required)"
+    },
+    "window": {
+     "type": "integer",
+     "default": 32,
+     "meaning": "trailing window length",
+     "range": [
+      1,
+      1000000.0
+     ]
+    },
+    "tb": {
+     "type": "string",
+     "default": "*",
+     "meaning": ""
+    }
+   },
+   "streamable": true,
+   "streaming_status": "streamable",
+   "streaming_note": "stream I/O / adapter",
+   "lag": null,
+   "lag_formula": "operator-dependent; bounded by window",
+   "cost": "O(window x inner cost) per sample",
+   "finance_uses": [
+    "causal use of non-causal operators (normalisation, filtfilt, Hilbert)"
+   ],
+   "caveats": [
+    "not equal to the batch operator on the full record",
+    "NaN while the start-up window is too short for the inner operator"
+   ]
+  }
+ ]
+}

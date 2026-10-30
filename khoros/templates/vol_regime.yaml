@@ -1,0 +1,31 @@
+name: vol_regime
+mode: stream
+description: |
+  Volatility regime labelling: 0 = calm, 1 = normal, 2 = stressed, from smoothed
+  20-bar realised volatility of log returns.
+inputs: [price]
+outputs:
+  regime: regime.o
+  volatility: smooth.o
+nodes:
+  - id: ret
+    op: klogret
+    rationale: log returns
+  - id: vol
+    op: krunstats
+    params: {stat: std, window: 20}
+    rationale: 20-bar realised volatility
+  - id: smooth
+    op: kema
+    params: {span: 10}
+    rationale: smooth volatility to reduce regime flicker
+  - id: regime
+    op: kthreshold3
+    params: {lo: 0.01, hi: 0.02}
+    rationale: thresholds in return units per bar
+edges:
+  - price -> ret.i
+  - ret -> vol.i
+  - vol -> smooth.i
+  - smooth -> regime.i
+synthetic: {kind: gbm, n: 1500, seed: 2}
