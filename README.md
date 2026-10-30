@@ -23,6 +23,10 @@ Notes on the optional Khoros bridge:
   discovered in a flat-layout"). Clone it and add `[tool.setuptools] packages = ["khoros_cantata"]` to
   its `pyproject.toml` first, then run `pip install -e <path>`.
 - The bridge's tests skip automatically if the package is absent.
+- Causal streaming: with a khoros_cantata that has `khoros_cantata.streaming` (its local `operators`
+  branch), `khoros_adapter.stream_executor(path)` runs a workspace tick by tick (`ex.push(price=p)`),
+  using `STREAM:kinput`/`STREAM:koutput` glyphs; SIGTRADE `kema`, `ksma`, `kkalman`, `klogret`, `kcross`
+  are declared causal and `kpower` is rejected as non-causal. Those tests skip on older khoros_cantata.
 
 ## Layout
 | module | what |
