@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "signal-trading"
+version = "0.1.0"
+description = "Educational signal-processing tools (filters, Kalman, spectral, wavelets) for market data, with a causal walk-forward backtester. Not trading advice."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = ["numpy>=1.24", "pandas>=2.0", "scipy>=1.10", "PyWavelets>=1.4", "matplotlib>=3.7"]
+
+[project.optional-dependencies]
+yfinance = ["yfinance>=0.2"]
+khoros = ["khoros-cantata-python @ git+https://github.com/woodrobuda/khoros-cantata-python"]
+dev = ["pytest>=7"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

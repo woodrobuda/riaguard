@@ -1,0 +1,64 @@
+# signal-trading
+
+Educational Python toolkit that applies classic signal processing (FIR/IIR moving averages, Kalman
+filters, FFT/spectral analysis, wavelets, the Hilbert transform) to stock price and tick streams. It
+includes a strict no-look-ahead walk-forward backtester and an optional bridge to
+[khoros-cantata-python](https://github.com/woodrobuda/khoros-cantata-python).
+
+> **DISCLAIMER.** This project is for education and research only. It is **not** investment, financial
+> or trading advice. Nothing here is a recommendation to buy or sell any security. Backtests are
+> hypothetical, use simplified costs, ignore slippage, taxes, borrow and market impact, and are
+> subject to overfitting. Past (simulated) performance does not predict future results. Use at your
+> own risk.
+
+## Install
+```bash
+python -m venv .venv && . .venv/bin/activate
+pip install -e ".[dev,yfinance]"     # core + tests + free Yahoo data
+pip install -e ".[khoros]"           # optional: Khoros/Cantata dataflow bridge
+pytest -q
+```
+Notes on the optional Khoros bridge:
+- Upstream khoros-cantata-python v0.22.0 cannot be pip-installed as-is ("Multiple top-level packages
+  discovered in a flat-layout"). Clone it and add `[tool.setuptools] packages = ["khoros_cantata"]` to
+  its `pyproject.toml` first, then run `pip install -e <path>`.
+- The bridge's tests skip automatically if the package is absent.
+
+## Layout
+| module | what |
+|---|---|
+| `data` | `load_csv`, `fetch_yfinance` (falls back to synthetic data offline), `synthetic_prices`, `synthetic_ticks` |
+| `bars` | `time_bars`, `tick_bars`, `volume_bars`, `dollar_bars` from irregular ticks |
+| `streaming` | online `update(x)` filters: `EMA`, `FIR` (`.sma`, `.wma`), `IIR(b, a)`, `KalmanLocalLinearTrend`, `KalmanHedgeRatio`, `RollingZScore` |
+| `spectral` | `periodogram`, `welch`, `dominant_period`, `butter_lowpass`, `zero_phase` (non-causal!), `group_delay`, `wavelet_denoise`, `wavelet_mra`, `hilbert_phase`, `rolling_causal` |
+| `strategies` | `buy_and_hold`, `ema_cross`, `sma_trend`, `kalman_slope` (long/flat) |
+| `backtest` | `run_signal` (position = signal shifted 1 bar, costs in bps), `assert_causal`, `walk_forward`, `Result.stats()` |
+| `khoros_adapter` | registers `SIGTRADE:{kema,ksma,kkalman,kpower,klogret,kcross}` in Khoros `NativeOperatorRegistry`; reuses `khoros_fft` and `conv1d_khoros`; `run_workspace(.wksp)` |
+
+## Quick start
+```python
+from signal_trading import data, streaming as st, strategies as S, backtest as bt
+df, src = data.fetch_yfinance("SPY", start="2015-01-01")   # or data.load_csv("my.csv")
+ema = st.EMA(span=20)
+for price in df["close"]:            # tick-by-tick / bar-by-bar
+    y = ema.update(price)
+bt.assert_causal(S.ema_cross, df["close"])
+print(bt.run_signal(df["close"], S.ema_cross(df["close"]), "ema", cost_bps=5).stats())
+```
+
+## Examples (`examples/`, plots in `examples/output/`)
+1. `01_filters_lag.py`: smoothing vs lag. Plots group delay of the SMA, EMA and Butterworth filters,
+   and shows a causal filter next to a look-ahead filtfilt.
+2. `02_bars.py`: builds time, tick, volume and dollar bars from irregular ticks.
+3. `03_spectral_wavelet.py`: periodogram pitfalls (a random walk shows fake cycles), wavelet
+   denoising and multiresolution, and Hilbert instantaneous period.
+4. `04_backtest.py [TICKER]`: filter signals against buy-and-hold, plus walk-forward EMA parameter
+   selection.
+5. `05_pairs_kalman.py`: Kalman dynamic hedge ratio and innovation z-score on a synthetic pair.
+6. `06_khoros_workspace.py`: runs `trend.wksp`, a Cantata-style dataflow graph, through
+   khoros-cantata-python.
+
+See [docs/RESEARCH.md](docs/RESEARCH.md) for the literature notes and pitfalls.
+
+## License
+MIT (placeholder; see LICENSE, owner to confirm).
