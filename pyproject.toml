@@ -21,3 +21,4 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+norecursedirs = ["khoros", ".venv", ".git"]  # khoros/ has its own suite: run it from khoros/
