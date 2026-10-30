@@ -77,9 +77,8 @@ validates, builds and explains workspaces. Provenance, install and test instruct
 - Templates: [`khoros/templates/`](khoros/templates/) — trend (EMA crossover + volatility filter),
   Kalman pairs mean reversion, volatility regime (spec, generated `.wk`, explanation)
 - Docs: [`AUTHORING.md`](khoros/docs/AUTHORING.md), [`CATALOG.md`](khoros/docs/CATALOG.md), [`STREAMING.md`](khoros/docs/STREAMING.md)
-- Plan for an AI agent operating these streams: [`docs/AGENT_IN_THE_STREAM_PLAN.md`](docs/AGENT_IN_THE_STREAM_PLAN.md) ([PDF](docs/AGENT_IN_THE_STREAM_PLAN.pdf))
 
-The disclaimer above applies here too: templates and plan are educational, run on synthetic data, and are
+The disclaimer above applies here too: templates are educational, run on synthetic data, and are
 not investment, financial or trading advice.
 
 ## License
