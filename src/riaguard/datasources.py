@@ -113,16 +113,45 @@ class StooqSource(DataSource):
 
 
 class PolygonSource(DataSource):
-    """Skeleton adapter for Polygon.io aggregates (``/v2/aggs``). Reads the key from
-    ``POLYGON_API_KEY``. Pagination, rate limits, trades/quotes and corporate-action
-    endpoints are not implemented yet (roadmap phase 2)."""
+    """Polygon.io aggregates (``/v2/aggs``) sized for the **free tier**.
+
+    * The key comes from ``POLYGON_API_KEY`` (or ``api_key=``); never put it in code or config.
+    * Free-tier limits are respected by default: at most ``calls_per_minute=5`` requests
+      (a process-wide throttle), and HTTP 429 responses are retried with backoff.
+    * Free-tier data is end-of-day / delayed with limited history, so this source is for
+      daily research and next-day alerts, not real-time monitoring. Paid plans can raise
+      ``calls_per_minute``.
+    * ``next_url`` pagination is followed. Trades/quotes and corporate-action endpoints are
+      not implemented (roadmap phase 2).
+    """
     name = "polygon"
     BASE = "https://api.polygon.io"
     ENV = "POLYGON_API_KEY"
+    _last_call = [0.0]  # shared across instances: the limit is per key, not per object
 
-    def __init__(self, api_key: str | None = None):
+    def __init__(self, api_key: str | None = None, calls_per_minute: float = 5, max_retries: int = 3,
+                 _sleep=None, _clock=None, _open=None):
+        import time
         self.api_key = api_key or os.environ.get(self.ENV)
         if not self.api_key: raise RuntimeError(f"set {self.ENV} to use PolygonSource")
+        self.min_interval = 60.0 / calls_per_minute if calls_per_minute else 0.0
+        self.max_retries = max_retries
+        self._sleep, self._clock = _sleep or time.sleep, _clock or time.monotonic
+        self._open = _open or (lambda req: urllib.request.urlopen(req, timeout=30).read())
+
+    def _get(self, url):
+        import urllib.error
+        for attempt in range(self.max_retries + 1):
+            wait = self._last_call[0] + self.min_interval - self._clock()
+            if wait > 0: self._sleep(wait)
+            self._last_call[0] = self._clock()
+            req = urllib.request.Request(url, headers={"Authorization": f"Bearer {self.api_key}"})
+            try:
+                return json.loads(self._open(req))
+            except urllib.error.HTTPError as e:
+                if e.code != 429 or attempt == self.max_retries: raise
+                self._sleep(max(self.min_interval, 1.0) * (attempt + 1))
+        raise RuntimeError("unreachable")  # pragma: no cover
 
     def get_bars(self, symbol, start=None, end=None, interval="1d"):
         mult, span = {"1d": (1, "day"), "1h": (1, "hour"), "1m": (1, "minute")}[interval]
@@ -130,9 +159,10 @@ class PolygonSource(DataSource):
         end = pd.Timestamp(end or pd.Timestamp.today()).strftime("%Y-%m-%d")
         url = (f"{self.BASE}/v2/aggs/ticker/{urllib.parse.quote(symbol)}/range/{mult}/{span}/{start}/{end}"
                f"?adjusted=true&sort=asc&limit=50000")
-        req = urllib.request.Request(url, headers={"Authorization": f"Bearer {self.api_key}"})
-        payload = json.loads(urllib.request.urlopen(req, timeout=30).read())
-        rows = payload.get("results") or []
+        rows, payload = [], {}
+        while url:
+            payload = self._get(url); rows += payload.get("results") or []
+            url = payload.get("next_url")
         if not rows: raise RuntimeError(f"polygon returned no data for {symbol}: {payload.get('status')}")
         df = pd.DataFrame(rows).rename(columns={"o": "open", "h": "high", "l": "low", "c": "close", "v": "volume", "t": "date"})
         df["date"] = pd.to_datetime(df["date"], unit="ms", utc=True)
