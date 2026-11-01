@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Risk overlays, regime detection and explainable, surveillance-style alerts for small RIAs and broker-dealers. Analysis and alerts only; never places orders. Not investment advice."
 readme = "README.md"
 requires-python = ">=3.10"
-license = {text = "MIT"}
+license = {text = "Apache-2.0"}
 dependencies = ["numpy>=1.24", "pandas>=2.0", "scipy>=1.10", "PyWavelets>=1.4", "matplotlib>=3.7"]
 
 [project.optional-dependencies]

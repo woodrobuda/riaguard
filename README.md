@@ -101,4 +101,4 @@ The disclaimer above applies here too: templates are educational, run on synthet
 not investment, financial or trading advice.
 
 ## License
-MIT (placeholder; see LICENSE, owner to confirm).
+Apache-2.0 (see [LICENSE](LICENSE) and [NOTICE](NOTICE)). Contributions need a DCO sign-off (`git commit -s`); see [CONTRIBUTING.md](CONTRIBUTING.md).

@@ -1,0 +1,11 @@
+riaguard
+Copyright 2026 woodrobuda
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Bundled sample data (src/riaguard/sample_data/*.csv.gz) was downloaded from
+Yahoo Finance via yfinance for offline tests and demos; Yahoo's terms apply and
+the data is for research only. It is not covered by the Apache-2.0 grant.
+
+riaguard is an analysis and alerting tool. It is not investment advice and it
+never places orders. See DISCLAIMER.md and docs/SCOPE.md.
