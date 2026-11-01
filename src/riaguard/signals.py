@@ -3,7 +3,7 @@
 Every signal maps a close series to a DataFrame with columns
 ``direction`` (-1, 0 or +1; 0 during warm-up), ``score`` (the quantity compared with
 ``threshold``) and the intermediate filter outputs. Row t uses closes <= t only.
-DSP signals are built from the online filters in :mod:`signal_trading.streaming`;
+DSP signals are built from the online filters in :mod:`riaguard.streaming`;
 benchmarks (buy-and-hold, SMA crossover, time-series momentum) use plain pandas
 rolling windows, which are also causal."""
 from __future__ import annotations

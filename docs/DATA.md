@@ -5,7 +5,7 @@
 ## Bar schema
 Every `DataSource.get_bars(symbol, start, end, interval)` returns a frame with a tz-aware UTC `DatetimeIndex` named `date`. Daily bars are stamped at midnight UTC on the session date. Columns are `open, high, low, close, volume`, plus optional `adj_close, dividends, splits`.
 
-## Sources (`signal_trading.datasources`)
+## Sources (`riaguard.datasources`)
 
 | source | key needed | notes |
 |---|---|---|
@@ -17,7 +17,7 @@ Every `DataSource.get_bars(symbol, start, end, interval)` returns a frame with a
 
 Write your own source by subclassing `DataSource` and returning the schema above through `datasources.normalize`.
 
-## Quality checks (`signal_trading.quality`)
+## Quality checks (`riaguard.quality`)
 
 * `check_bars(df)` returns a report and never edits data. It covers duplicate or non-monotonic timestamps, NaNs, non-positive prices, OHLC inconsistencies and negative volume. It also lists suspect bad ticks (a robust-z spike that reverts on the next bar), missing or unexpected sessions against an approximate NYSE calendar, split events and the number of dividends.
 * `clean_bars(df, drop_bad_ticks=False)` de-duplicates, sorts, drops NaN or non-positive rows, and can drop bad ticks.

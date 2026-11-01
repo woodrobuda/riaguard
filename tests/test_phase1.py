@@ -2,8 +2,8 @@
 import json, os
 import numpy as np, pandas as pd, pytest
 from scipy import stats
-from signal_trading import signals as S, engine as E, metrics as M, splits as SP, datasources as D, quality as Q, explain as X
-from signal_trading.costs import CostModel, ZERO
+from riaguard import signals as S, engine as E, metrics as M, splits as SP, datasources as D, quality as Q, explain as X
+from riaguard.costs import CostModel, ZERO
 
 
 @pytest.fixture(scope="module")

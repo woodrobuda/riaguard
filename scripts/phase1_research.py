@@ -12,8 +12,8 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from signal_trading import __version__, datasources as D, quality as Q, signals as S, engine as E, metrics as M, explain as X  # noqa: E402
-from signal_trading.costs import CostModel  # noqa: E402
+from riaguard import __version__, datasources as D, quality as Q, signals as S, engine as E, metrics as M, explain as X  # noqa: E402
+from riaguard.costs import CostModel  # noqa: E402
 
 OUT = Path(__file__).resolve().parents[1] / "docs" / "reports"
 

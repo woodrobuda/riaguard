@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt, numpy as np
 from scipy.stats import kurtosis
 from _common import OUT
-from signal_trading import data, bars
+from riaguard import data, bars
 tk = data.synthetic_ticks(40000, seed=2)
 gaps = tk.index.to_series().diff().dt.total_seconds()
 print(f"ticks={len(tk)}, gap mean={gaps.mean():.2f}s, max={gaps.max():.1f}s (irregular)")

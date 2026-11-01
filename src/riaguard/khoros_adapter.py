@@ -69,7 +69,7 @@ def _require_streaming():
 
 if STREAMING_AVAILABLE:
     class _OnlineStream(kstream.StreamOp):
-        """Adapts a signal_trading online filter (``reset()``/``update(x)``) to khoros StreamOp."""
+        """Adapts a riaguard online filter (``reset()``/``update(x)``) to khoros StreamOp."""
         def __init__(self, make, pick=None, warmup=0):
             self.make, self.pick, self.warmup = make, pick, int(warmup); self.reset()
         def reset(self): self.f = self.make(); self.n = 0

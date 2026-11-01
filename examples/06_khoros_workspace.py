@@ -1,7 +1,7 @@
 """Run a Cantata-style dataflow workspace using khoros-cantata-python + SIGTRADE operators."""
 import os, numpy as np, matplotlib.pyplot as plt
 from _common import OUT
-from signal_trading import data, khoros_adapter as ka
+from riaguard import data, khoros_adapter as ka
 if not ka.AVAILABLE: raise SystemExit("install khoros-cantata-python first (pip install -e .[khoros])")
 px = data.synthetic_prices(800, seed=6)["close"].to_numpy(); got = {}
 r = ka.register_operators()

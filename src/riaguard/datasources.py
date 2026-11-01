@@ -2,7 +2,7 @@
 
 Standard bar schema returned by every source: a tz-aware (UTC) ``DatetimeIndex`` named
 ``date`` and float columns ``open, high, low, close, volume``; optionally ``adj_close``,
-``dividends``, ``splits``. Use :func:`signal_trading.quality.check_bars` on the result.
+``dividends``, ``splits``. Use :func:`riaguard.quality.check_bars` on the result.
 
 Sources: ``LocalFileSource`` (CSV/CSV.GZ/Parquet), ``SampleSource`` (small cached daily
 files shipped with the package, for offline tests), ``YahooSource`` (yfinance extra, no
@@ -88,7 +88,7 @@ class YahooSource(DataSource):
         try:
             import yfinance as yf
         except ImportError as e:
-            raise ImportError("pip install 'signal-trading[yfinance]'") from e
+            raise ImportError("pip install 'riaguard[yfinance]'") from e
         df = yf.download(symbol, start=start, end=end, interval=interval, auto_adjust=False,
                          actions=True, progress=False)
         if df is None or df.empty: raise RuntimeError(f"yahoo returned no data for {symbol}")
@@ -106,7 +106,7 @@ class StooqSource(DataSource):
     def get_bars(self, symbol, start=None, end=None, interval="1d"):
         if interval != "1d": raise ValueError("stooq source supports daily bars only")
         s = symbol.lower() if "." in symbol else f"{symbol.lower()}.us"
-        req = urllib.request.Request(self.URL.format(s=urllib.parse.quote(s)), headers={"User-Agent": "signal-trading"})
+        req = urllib.request.Request(self.URL.format(s=urllib.parse.quote(s)), headers={"User-Agent": "riaguard"})
         text = urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "replace")
         if not text.lower().startswith("date"): raise RuntimeError("stooq did not return CSV (blocked or unknown symbol)")
         return _clip(normalize(pd.read_csv(io.StringIO(text))), start, end)

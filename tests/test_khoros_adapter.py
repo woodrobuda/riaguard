@@ -1,5 +1,5 @@
 import numpy as np, pytest
-ka = pytest.importorskip("signal_trading.khoros_adapter")
+ka = pytest.importorskip("riaguard.khoros_adapter")
 if not ka.AVAILABLE:
     pytest.skip("khoros_cantata not installed", allow_module_level=True)
 

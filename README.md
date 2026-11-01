@@ -1,4 +1,4 @@
-# signal-trading
+# riaguard
 
 Educational Python toolkit that applies classic signal processing (FIR/IIR moving averages, Kalman
 filters, FFT/spectral analysis, wavelets, the Hilbert transform) to stock price and tick streams. It
@@ -30,7 +30,7 @@ Notes on the optional Khoros bridge:
 
 ## Phase 1: evidence (backtesting, metrics, data, explainable alerts)
 
-> **Not investment advice.** signal-trading is an analysis and alerting toolkit. It simulates
+> **Not investment advice.** riaguard is an analysis and alerting toolkit. It simulates
 > positions for research and **never places orders or connects to a broker**. All performance
 > figures are hypothetical, simulated results on historical data.
 
@@ -60,7 +60,7 @@ symbol/mode/family cases. Most of their value is lower drawdown in long-flat mod
 
 ## Quick start
 ```python
-from signal_trading import data, streaming as st, strategies as S, backtest as bt
+from riaguard import data, streaming as st, strategies as S, backtest as bt
 df, src = data.fetch_yfinance("SPY", start="2015-01-01")   # or data.load_csv("my.csv")
 ema = st.EMA(span=20)
 for price in df["close"]:            # tick-by-tick / bar-by-bar

@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "signal-trading"
+name = "riaguard"
 version = "0.1.0"
-description = "Educational signal-processing tools (filters, Kalman, spectral, wavelets) for market data, with a causal walk-forward backtester. Not trading advice."
+description = "Risk overlays, regime detection and explainable, surveillance-style alerts for small RIAs and broker-dealers. Analysis and alerts only; never places orders. Not investment advice."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -21,7 +21,7 @@ dev = ["pytest>=7"]
 where = ["src"]
 
 [tool.setuptools.package-data]
-signal_trading = ["sample_data/*.csv.gz"]
+riaguard = ["sample_data/*.csv.gz"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

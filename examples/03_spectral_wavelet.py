@@ -1,7 +1,7 @@
 """Periodogram of returns, wavelet denoising/MRA, Hilbert period - and how a fake 'cycle' appears in pure noise."""
 import numpy as np, matplotlib.pyplot as plt
 from _common import OUT
-from signal_trading import data, spectral as sp
+from riaguard import data, spectral as sp
 cyc = data.synthetic_prices(1024, seed=3, cycle_amp=0.08, cycle_period=64)["close"]
 rw = data.synthetic_prices(1024, seed=4)["close"]
 fig, ax = plt.subplots(4, 1, figsize=(10, 13))
