@@ -1,7 +1,7 @@
 # riaguard
 
 **Risk overlays, regime detection and explainable alerts for small RIAs and broker-dealers.**
-Open source (Apache-2.0), self-hostable, and **analysis and alerts only: it never places orders.**
+Open source (Apache-2.0), self-hostable ([github.com/woodrobuda/riaguard](https://github.com/woodrobuda/riaguard), formerly `signal-trading`; old URLs redirect), and **analysis and alerts only: it never places orders.**
 
 > **Not investment advice.** riaguard describes market data and model states; it does not
 > recommend any security to anyone. All performance figures here are **hypothetical** backtests.
@@ -35,6 +35,7 @@ configs and alert history ([docs/EDITIONS.md](docs/EDITIONS.md)). Only the core 
 
 ## Install
 ```bash
+git clone https://github.com/woodrobuda/riaguard && cd riaguard
 python -m venv .venv && . .venv/bin/activate
 pip install -e ".[dev,yfinance]"     # core + tests + Yahoo demo data
 pytest -q
