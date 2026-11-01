@@ -1,32 +1,52 @@
 # riaguard
 
-Educational Python toolkit that applies classic signal processing (FIR/IIR moving averages, Kalman
-filters, FFT/spectral analysis, wavelets, the Hilbert transform) to stock price and tick streams. It
-includes a strict no-look-ahead walk-forward backtester and an optional bridge to
-[khoros-cantata-python](https://github.com/woodrobuda/khoros-cantata-python).
+**Risk overlays, regime detection and explainable alerts for small RIAs and broker-dealers.**
+Open source (Apache-2.0), self-hostable, and **analysis and alerts only: it never places orders.**
 
-> **DISCLAIMER.** This project is for education and research only. It is **not** investment, financial
-> or trading advice. Nothing here is a recommendation to buy or sell any security. Backtests are
-> hypothetical, use simplified costs, ignore slippage, taxes, borrow and market impact, and are
-> subject to overfitting. Past (simulated) performance does not predict future results. Use at your
-> own risk.
+> **Not investment advice.** riaguard describes market data and model states; it does not
+> recommend any security to anyone. All performance figures here are **hypothetical** backtests.
+> See [DISCLAIMER.md](DISCLAIMER.md) and [docs/SCOPE.md](docs/SCOPE.md) (drafts pending securities
+> counsel review).
+
+## Who it is for
+- **Primary users: small registered investment advisers (RIAs) and small broker-dealers** that
+  want auditable risk and supervisory tooling without an enterprise budget. The firm stays
+  responsible for any advice and for its own compliance; riaguard supplies impersonal analysis.
+- **Community: retail quants and researchers**, who use and extend the open-source core.
+
+## What it does (in order of emphasis)
+1. **Risk overlays and regime detection** (the lead, with the strongest evidence). Causal
+   trend, volatility and drawdown regimes from DSP filters (EMA, Kalman, Butterworth, spectral,
+   wavelets). In phase 1 the clearest result was *risk reduction*, not extra return: for example
+   on SPY, 2013–2026, the walk-forward EMA long-flat overlay had a hypothetical max drawdown of
+   -27.0% and volatility of 12.1%, against -33.7% and 16.7% for buy-and-hold, with a similar
+   Sharpe ratio (0.90 vs 0.91) and a lower CAGR (10.6% vs 14.8%).
+2. **Surveillance-style alerts.** Explainable JSONL alerts with inputs, filter values, the
+   threshold crossed and a config hash, worded descriptively ([docs/ALERT_WORDING.md](docs/ALERT_WORDING.md)).
+3. **Return-seeking strategies, presented as research.** Walk-forward backtests with costs,
+   deflated Sharpe and PBO, published with their negative results: most DSP strategies did
+   **not** beat buy-and-hold on Sharpe after costs.
+
+**Data:** Polygon free tier first (`POLYGON_API_KEY`, rate-limited, end-of-day/delayed), Yahoo
+for demos, bundled sample data for offline tests. IEX Cloud shut down in 2024. See [docs/DATA.md](docs/DATA.md).
+
+**Editions:** one shared core, then Desktop, Self-hosted Docker and Managed editions that share
+configs and alert history ([docs/EDITIONS.md](docs/EDITIONS.md)). Only the core exists today.
 
 ## Install
 ```bash
 python -m venv .venv && . .venv/bin/activate
-pip install -e ".[dev,yfinance]"     # core + tests + free Yahoo data
-pip install -e ".[khoros]"           # optional: Khoros/Cantata dataflow bridge
+pip install -e ".[dev,yfinance]"     # core + tests + Yahoo demo data
 pytest -q
+export POLYGON_API_KEY=...            # optional: Polygon free tier (never commit keys)
 ```
-Notes on the optional Khoros bridge:
-- Upstream khoros-cantata-python v0.22.0 cannot be pip-installed as-is ("Multiple top-level packages
-  discovered in a flat-layout"). Clone it and add `[tool.setuptools] packages = ["khoros_cantata"]` to
-  its `pyproject.toml` first, then run `pip install -e <path>`.
-- The bridge's tests skip automatically if the package is absent.
-- Causal streaming: with a khoros_cantata that has `khoros_cantata.streaming` (its local `operators`
-  branch), `khoros_adapter.stream_executor(path)` runs a workspace tick by tick (`ex.push(price=p)`),
-  using `STREAM:kinput`/`STREAM:koutput` glyphs; SIGTRADE `kema`, `ksma`, `kkalman`, `klogret`, `kcross`
-  are declared causal and `kpower` is rejected as non-causal. Those tests skip on older khoros_cantata.
+
+## Plug-ins
+Optional extensions register through the `riaguard.plugins` entry-point group
+(`riaguard.plugins.available()`, `load(name)`, `load_all()`). The Khoros/Cantata dataflow bridge
+now lives in the separate plug-in repo
+[woodrobuda/riaguard-khoros](https://github.com/woodrobuda/riaguard-khoros) (private for now while
+the licensing of its Khoros snapshot is confirmed).
 
 ## Phase 1: evidence (backtesting, metrics, data, explainable alerts)
 
@@ -37,7 +57,7 @@ Notes on the optional Khoros bridge:
 * `engine`: a strictly causal vectorised backtester with walk-forward selection, long-flat, long-short and long-only modes, unit or vol-target sizing, and a `CostModel` (commission, spread, slippage, borrow).
 * `metrics`: Sharpe, Sortino, Calmar, drawdown and its duration, hit rate, turnover and exposure, plus the probabilistic and deflated Sharpe ratio and PBO (CSCV).
 * `signals`: DSP signals (EMA cross, Kalman slope, causal Butterworth trend) and benchmarks (buy-and-hold, SMA 50/200, 12-month time-series momentum).
-* `datasources` and `quality`: a pluggable `DataSource` interface, local CSV/Parquet files, bundled offline sample data, Yahoo and Stooq (no key), a Polygon skeleton (env var key), and data checks.
+* `datasources` and `quality`: a pluggable `DataSource` interface, local CSV/Parquet files, bundled offline sample data, Yahoo and Stooq (no key), Polygon (free-tier rate limits, env var key), and data checks.
 * `explain`: JSONL alerts with inputs, filter values, the threshold crossed and the config hash.
 
 ```bash
@@ -56,7 +76,7 @@ symbol/mode/family cases. Most of their value is lower drawdown in long-flat mod
 | `spectral` | `periodogram`, `welch`, `dominant_period`, `butter_lowpass`, `zero_phase` (non-causal!), `group_delay`, `wavelet_denoise`, `wavelet_mra`, `hilbert_phase`, `rolling_causal` |
 | `strategies` | `buy_and_hold`, `ema_cross`, `sma_trend`, `kalman_slope` (long/flat) |
 | `backtest` | `run_signal` (position = signal shifted 1 bar, costs in bps), `assert_causal`, `walk_forward`, `Result.stats()` |
-| `khoros_adapter` | registers `SIGTRADE:{kema,ksma,kkalman,kpower,klogret,kcross}` in Khoros `NativeOperatorRegistry`; reuses `khoros_fft` and `conv1d_khoros`; `run_workspace(.wksp)` |
+| `plugins` | `riaguard.plugins` entry-point hook for optional plug-ins |
 
 ## Quick start
 ```python
@@ -78,27 +98,11 @@ print(bt.run_signal(df["close"], S.ema_cross(df["close"]), "ema", cost_bps=5).st
 4. `04_backtest.py [TICKER]`: filter signals against buy-and-hold, plus walk-forward EMA parameter
    selection.
 5. `05_pairs_kalman.py`: Kalman dynamic hedge ratio and innovation z-score on a synthetic pair.
-6. `06_khoros_workspace.py`: runs `trend.wksp`, a Cantata-style dataflow graph, through
-   khoros-cantata-python.
 
 See [docs/RESEARCH.md](docs/RESEARCH.md) for the literature notes and pitfalls.
 
-## Khoros workspace authoring snapshot (`khoros/`)
-
-[`khoros/`](khoros/) is a snapshot of the `authoring` branch of
-[khoros-cantata-python](https://github.com/woodrobuda/khoros-cantata-python) (built on its unmerged
-`operators` branch / PR #1): a NumPy/SciPy Khoros/Cantata dataflow engine with a causal streaming executor,
-an operator catalog, FINANCE operators (Kalman trend/pairs, z-score, log returns) and an authoring CLI that
-validates, builds and explains workspaces. Provenance, install and test instructions:
-[`khoros/README_SNAPSHOT.md`](khoros/README_SNAPSHOT.md). It is a separate project with its own test suite
-(not collected by the root `pytest`) and its own Apache-2.0 license.
-
-- Templates: [`khoros/templates/`](khoros/templates/) — trend (EMA crossover + volatility filter),
-  Kalman pairs mean reversion, volatility regime (spec, generated `.wk`, explanation)
-- Docs: [`AUTHORING.md`](khoros/docs/AUTHORING.md), [`CATALOG.md`](khoros/docs/CATALOG.md), [`STREAMING.md`](khoros/docs/STREAMING.md)
-
-The disclaimer above applies here too: templates are educational, run on synthetic data, and are
-not investment, financial or trading advice.
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md). Every commit needs a DCO sign-off (`git commit -s`); CI checks it.
 
 ## License
 Apache-2.0 (see [LICENSE](LICENSE) and [NOTICE](NOTICE)). Contributions need a DCO sign-off (`git commit -s`); see [CONTRIBUTING.md](CONTRIBUTING.md).
