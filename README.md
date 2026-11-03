@@ -28,6 +28,25 @@ Notes on the optional Khoros bridge:
   using `STREAM:kinput`/`STREAM:koutput` glyphs; SIGTRADE `kema`, `ksma`, `kkalman`, `klogret`, `kcross`
   are declared causal and `kpower` is rejected as non-causal. Those tests skip on older khoros_cantata.
 
+## Phase 1: evidence (backtesting, metrics, data, explainable alerts)
+
+> **Not investment advice.** signal-trading is an analysis and alerting toolkit. It simulates
+> positions for research and **never places orders or connects to a broker**. All performance
+> figures are hypothetical, simulated results on historical data.
+
+* `engine`: a strictly causal vectorised backtester with walk-forward selection, long-flat, long-short and long-only modes, unit or vol-target sizing, and a `CostModel` (commission, spread, slippage, borrow).
+* `metrics`: Sharpe, Sortino, Calmar, drawdown and its duration, hit rate, turnover and exposure, plus the probabilistic and deflated Sharpe ratio and PBO (CSCV).
+* `signals`: DSP signals (EMA cross, Kalman slope, causal Butterworth trend) and benchmarks (buy-and-hold, SMA 50/200, 12-month time-series momentum).
+* `datasources` and `quality`: a pluggable `DataSource` interface, local CSV/Parquet files, bundled offline sample data, Yahoo and Stooq (no key), a Polygon skeleton (env var key), and data checks.
+* `explain`: JSONL alerts with inputs, filter values, the threshold crossed and the config hash.
+
+```bash
+python scripts/phase1_research.py      # reproduces docs/reports/phase1_results.md offline
+```
+**Headline (honest) result:** after walk-forward selection and costs, the DSP strategies beat buy-and-hold on Sharpe ratio in only a few of the 40
+symbol/mode/family cases. Most of their value is lower drawdown in long-flat mode, not higher returns. See
+[docs/reports/phase1_results.md](docs/reports/phase1_results.md), [docs/BACKTESTING.md](docs/BACKTESTING.md) and [docs/DATA.md](docs/DATA.md).
+
 ## Layout
 | module | what |
 |---|---|
