@@ -9,10 +9,12 @@ any security.** It never places orders. See [docs/SCOPE.md](docs/SCOPE.md).
 ## Hypothetical and backtested performance
 All performance figures in this repository (README, `docs/reports/`, examples) are
 **hypothetical**. They come from simulated backtests on historical data, not from any account
-or client portfolio, and no money was invested. Firms subject to the SEC Marketing Rule
-(Rule 206(4)-1 under the Advisers Act) or FINRA communications rules should treat any of these
-figures as hypothetical performance and should not use them in advertisements without their
-own compliance review. In particular:
+or client portfolio, and no money was invested. riaguard is not an investment adviser or
+broker-dealer and does not market investment performance. The SEC Marketing Rule
+(Rule 206(4)-1 under the Advisers Act) and FINRA communications rules are cited only because they
+apply to a **firm customer** that reuses any of these hypothetical-performance figures in its own
+marketing: that firm, not riaguard, is responsible for treating them as hypothetical performance
+and for its own compliance review before any such use. In particular:
 
 - **Hindsight and selection.** Backtests are designed after the fact. Parameters were chosen
   by walk-forward selection over many trials (the report states how many and deflates the

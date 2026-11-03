@@ -40,3 +40,10 @@ Numbers below are illustrative, except the first and fifth rows, which come from
 - [ ] Data timeliness is stated (real-time, delayed or EOD).
 - [ ] Disclaimer footer is present.
 - [ ] Reviewed against this guide in the PR.
+
+## CI enforcement
+Rules 1–3 are enforced in CI by `scripts/check_alert_wording.py` (job `alert-wording` in
+`.github/workflows/ci.yml`). It scans string literals in alert-generating code
+(`src/riaguard/explain.py`; docstrings and comments are skipped) and the sample alerts in
+`docs/reports/sample_alerts.jsonl`. Keep its wordlist in sync with this guide. Run it locally with
+`python scripts/check_alert_wording.py`.
