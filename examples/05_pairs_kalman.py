@@ -1,7 +1,7 @@
 """Kalman dynamic hedge ratio + innovation z-score (synthetic cointegrated pair)."""
 import numpy as np, matplotlib.pyplot as plt
 from _common import OUT
-from signal_trading import streaming as st
+from riaguard import streaming as st
 rng = np.random.default_rng(5); n = 1500
 x = 50 + np.cumsum(rng.normal(0, 1, n)); beta = 1.2 + 0.4 * np.sin(np.arange(n) / 300)
 spread = np.zeros(n)

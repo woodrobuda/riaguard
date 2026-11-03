@@ -1,7 +1,7 @@
 """Walk-forward comparison of filter signals vs buy-and-hold (5 bps/side). ILLUSTRATIVE ONLY."""
 import sys, numpy as np, pandas as pd, matplotlib.pyplot as plt
 from _common import OUT
-from signal_trading import data, backtest as bt, strategies as S
+from riaguard import data, backtest as bt, strategies as S
 ticker = sys.argv[1] if len(sys.argv) > 1 else "SPY"
 df, src = data.fetch_yfinance(ticker, start="2010-01-01")
 px = df["close"]; print("data source:", src, "| bars:", len(px), px.index[0].date(), "->", px.index[-1].date())

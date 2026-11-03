@@ -1,6 +1,6 @@
 import numpy as np, pandas as pd, pytest
 from scipy import signal
-from signal_trading import streaming as st, spectral as sp, bars, data, backtest as bt, strategies as S
+from riaguard import streaming as st, spectral as sp, bars, data, backtest as bt, strategies as S
 
 
 def test_ema_matches_pandas():

@@ -2,8 +2,8 @@
 import json, os
 import numpy as np, pandas as pd, pytest
 from scipy import stats
-from signal_trading import signals as S, engine as E, metrics as M, splits as SP, datasources as D, quality as Q, explain as X
-from signal_trading.costs import CostModel, ZERO
+from riaguard import signals as S, engine as E, metrics as M, splits as SP, datasources as D, quality as Q, explain as X
+from riaguard.costs import CostModel, ZERO
 
 
 @pytest.fixture(scope="module")
@@ -237,3 +237,21 @@ def test_research_script_smoke(tmp_path, monkeypatch):
     monkeypatch.setattr(mod, "OUT", tmp_path)
     mod.main(["--symbols", "SPY", "--train", "504", "--test", "252"])
     assert (tmp_path / "phase1_results.md").exists() and json.loads((tmp_path / "phase1_results.json").read_text())["results"]
+
+
+def test_polygon_free_tier_throttle_pagination_and_429():
+    import io, json, urllib.error
+    clock = [0.0]; sleeps = []; calls = []
+    def sleep(s): sleeps.append(s); clock[0] += s
+    pages = [{"results": [{"t": 1704153600000, "o": 1, "h": 2, "l": 0.5, "c": 1.5, "v": 10}], "next_url": "https://api.polygon.io/next"},
+             {"results": [{"t": 1704240000000, "o": 1.5, "h": 2, "l": 1, "c": 1.8, "v": 12}]}]
+    def fake_open(req):
+        calls.append(req.full_url)
+        if len(calls) == 2: raise urllib.error.HTTPError(req.full_url, 429, "rate", {}, io.BytesIO())
+        return json.dumps(pages[0 if len(calls) == 1 else 1]).encode()
+    D.PolygonSource._last_call[0] = -1e9
+    src = D.PolygonSource(api_key="test", _sleep=sleep, _clock=lambda: clock[0], _open=fake_open)
+    df = src.get_bars("SPY", "2024-01-02", "2024-01-03")
+    assert len(df) == 2 and len(calls) == 3 and calls[1] == calls[2] == "https://api.polygon.io/next"
+    assert all(s >= 12 - 1e-9 for s in sleeps)  # 5 calls/min => >= 12 s between requests
+    assert "test" not in "".join(calls)  # key goes in the header, never the URL

@@ -2,7 +2,7 @@
 import warnings; warnings.filterwarnings('ignore', module='scipy')
 import numpy as np, matplotlib.pyplot as plt
 from _common import OUT
-from signal_trading import data, streaming as st, spectral as sp
+from riaguard import data, streaming as st, spectral as sp
 px = data.synthetic_prices(600, seed=1, cycle_amp=0.05)["close"].to_numpy()
 b, a = sp.butter_lowpass(30)
 ys = {"EMA(20)": st.run(st.EMA(span=20), px), "SMA(20)": st.run(st.FIR.sma(20), px),

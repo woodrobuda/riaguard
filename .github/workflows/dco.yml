@@ -1,0 +1,28 @@
+name: dco
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  signoff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: every PR commit has a Signed-off-by matching its author
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          fail=0
+          for c in $(git rev-list --no-merges "$BASE..$HEAD"); do
+            email=$(git log -1 --format='%ae' "$c")
+            if git log -1 --format='%(trailers:key=Signed-off-by,valueonly)' "$c" | grep -qiF "<$email>"; then
+              echo "ok   $c"
+            else
+              echo "::error::commit $c ($email) has no matching Signed-off-by. Use 'git commit -s' (see CONTRIBUTING.md)."
+              fail=1
+            fi
+          done
+          exit $fail
