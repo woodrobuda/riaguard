@@ -5,7 +5,7 @@ Thanks for helping. riaguard is licensed under Apache-2.0 (see `LICENSE` and `NO
 ## Ground rules
 - **Analysis and alerts only.** No order entry, broker order APIs or automated execution. PRs that add them will be closed.
 - **No secrets.** Never commit API keys or credentials. Read keys from environment variables (for example `POLYGON_API_KEY`).
-- **Descriptive alert wording.** Follow [docs/ALERT_WORDING.md](docs/ALERT_WORDING.md).
+- **Descriptive alert wording.** Follow [docs/ALERT_WORDING.md](docs/ALERT_WORDING.md). This is CI-enforced by `scripts/check_alert_wording.py`.
 - Keep PRs small, with tests. Run `pytest -q` before pushing.
 
 ## Developer Certificate of Origin (DCO)

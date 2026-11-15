@@ -10,6 +10,9 @@ riaguard ships as **one shared core** with three editions, built in this order:
 | 2 | **Self-hosted Docker** | a small firm's team | `docker compose` on the firm's own server or cloud account | after Desktop |
 | 3 | **Managed** | firms that do not want to run servers | hosted by the project, per-firm tenant | later |
 
+**Managed edition requires ToS/Privacy Notice/DPA before launch** (Terms of Service, Privacy Notice
+and Data Processing Addendum for firm customers).
+
 All three are analysis and alerts only (see [SCOPE.md](SCOPE.md)). None places orders.
 
 ## The core (`riaguard` package, this repo)
